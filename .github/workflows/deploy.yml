@@ -12,12 +12,12 @@ jobs:
         uses: actions/checkout@v4
       - name: Install dependencies
         run: npm ci
-      - name: Lint
-        run: npm run lint
       - name: GLOBAL_VAR
         run: echo $GLOBAL_VAR
       - name: LOCAL_VAR
         run: echo $LOCAL_VAR
+      - name: Lint
+        run: npm run lint
   test:
     runs-on: ubuntu-latest
     steps:
