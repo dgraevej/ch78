@@ -1,0 +1,40 @@
+name: Deployment Exercise 1
+on: push
+env:
+  GLOBAL_VAR: global_var
+jobs:
+  lint:
+    env:
+      LOCAL_VAR: local_var
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run test        
+  output_vars:
+    name: GLOBAL_VAR
+    run: echo $GLOBAL_VAR
+  deploy:
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm ci
+      - name: Build code
+        run: npm run build
+      - name: Deploy code
+        run: echo "Deploying..."
